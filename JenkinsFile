@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                build wait: false, job: 'Build_Project'
+            }
+        }
+         
+        stage('Dev_Deploy') {
+            steps {
+                build wait: false, job: 'Deploy_To_Dev_Project'
+            }
+        }
+        
+        stage('Unit_Test') {
+            steps {
+               build wait: false, job: 'Unit_Test_Project'
+            }
+        }
+        
+        stage('Test_Deploy') {
+            steps {
+            build wait: false, job: 'Deploy_To_Test_Project'
+            }
+        }
+        
+        stage('Test') {
+            steps {
+             build wait: false, job: 'Test_Project'
+            }
+        }
+        
+        stage('Prod_Deploy') {
+            steps {
+             build wait: false, job: 'Deploy_To_Prod_Project'
+            }
+        }
+    }
+}
